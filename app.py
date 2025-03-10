@@ -34,7 +34,7 @@ def process(
     image_input,
     box_threshold=0.05,
     iou_threshold=0.1,
-    use_paddleocr=True,
+    use_paddleocr=False,
     imgsz=640
 ) -> Optional[Image.Image]:
 
@@ -68,8 +68,7 @@ def save_image(out_image: Image):
 @app.post("/detect/")
 async def detect(
     background_task:BackgroundTasks,
-    image: UploadFile = File(...),
-    description: str = Form(...)):
+    image: UploadFile = File(...)):
     image_data = await image.read()
     pil_image = Image.open(io.BytesIO(image_data)).convert("RGB")
     out_image, parsed_content = process(pil_image)
