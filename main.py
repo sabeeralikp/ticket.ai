@@ -43,13 +43,14 @@ snapshot_download(repo_id=repo_id, local_dir=local_dir)
 
 print(f"Repository downloaded to: {local_dir}")
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Start Ollama server when app starts
-    await run(['ollama', 'serve'])
-    yield
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+#     # Start Ollama server when app starts
+#     await run(['ollama', 'serve'])
+#     yield
 
-app = FastAPI(lifespan=lifespan)
+# app = FastAPI(lifespan=lifespan)
+app = FastAPI()
 
 # ======== Ollama Proxy Endpoint ======== #
 @app.api_route("/ollama/{path:path}", methods=["GET", "POST", "PUT"])
