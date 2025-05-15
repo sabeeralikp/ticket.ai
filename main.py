@@ -55,7 +55,7 @@ app = FastAPI()
 # ======== Ollama Proxy Endpoint ======== #
 @app.api_route("/ollama/{path:path}", methods=["GET", "POST", "PUT"])
 async def ollama_proxy(path: str, request: Request):
-    async with httpx.AsyncClient(base_url="http://localhost:11434") as client:
+    async with httpx.AsyncClient(base_url="http://localhost:11434",timeout=10000) as client:
         response = await client.request(
             method=request.method,
             url=path,
